@@ -105,4 +105,4 @@ workflows:
       - build-application-images:
          requires: 
             - build-base-image
-      - configure-infra
+      # - configure-infra
