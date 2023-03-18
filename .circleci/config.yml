@@ -25,7 +25,8 @@ commands:
 
 jobs:
   build-base-image:
-    <<: *baseImage
+    machine:
+      image: ubuntu-2204:2022.04.2
     steps:
       - checkout
       - run:
@@ -40,7 +41,8 @@ jobs:
       # - notify_slack_error
     
   build-application-images:
-    <<: *kubeImage
+    machine:
+      image: ubuntu-2204:2022.04.2
     steps:
       - checkout
       - run:
