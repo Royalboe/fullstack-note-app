@@ -3,8 +3,8 @@ FROM node:lts
 WORKDIR /usr/app
 
 COPY ./package.json .
-RUN npm install --production --force
+RUN npm install --force
 
 COPY . .
 
-CMD [ "npm", "run", "start" ]
+CMD [ "npm", "run", "dev" ]
