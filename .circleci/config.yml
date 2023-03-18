@@ -31,9 +31,12 @@ jobs:
       - run:
           name: Build docker image
           command: |
+            sudo service docker status
+            sudo docker --version
+            sudo service docker start
             echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-            docker image build -t royalboe/kube:1.0.0 .circleci/.
-            docker push royalboe/kube:1.0.0
+            sudo docker image build -t royalboe/kube:1.0.0 .circleci/.
+            sudo docker push royalboe/kube:1.0.0
       # - notify_slack_success
       # - notify_slack_error
     
