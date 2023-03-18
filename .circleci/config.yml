@@ -8,7 +8,7 @@ defaults:
       - image: royalboe/kube:1.0.0
   - &baseImage
     docker:
-      - image: cimg/base
+      - image: docker:17.05.0-ce-git
   
   - &terraformImage
     docker:
