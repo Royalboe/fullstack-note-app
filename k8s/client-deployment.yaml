@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      component: client
+  template:
+    metadata:
+      labels:
+        component: client
+    spec:
+      containers:
+        - name: client
+          image: royalboe/notes-client
+          ports:
+            - containerPort: 8080
+          resources: 
+            requests:
+              memory: "64Mi"
+              cpu: "200m"
+            limits:
+              memory: "150Mi"
+              cpu: "300m"
+          env:
+            - name: VUE_APP_API_URL
+              value: /api

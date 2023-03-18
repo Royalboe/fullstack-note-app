@@ -1,0 +1,8 @@
+version: 2.1
+orbs: 
+  slack: circleci/slack@4.12.1
+
+defaults: 
+  - &kubeImage
+    docker:
+        - image: royalboe/kube:1.0.0

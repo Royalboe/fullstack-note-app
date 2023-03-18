@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      component: api
+  template:
+    metadata:
+      labels:
+        component: api
+    spec:
+      containers:
+        - name: api
+          image: royalboe/notes-api
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "200m"
+            limits:
+              memory: "150Mi"
+              cpu: "300m"
+          envFrom:
+            - configMapRef:
+                name: api-config-map
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: password
+      restartPolicy: Always
