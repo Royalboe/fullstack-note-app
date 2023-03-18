@@ -31,7 +31,7 @@ jobs:
       - run:
           name: Build docker image
           command: |
-            docker image build -t royalboe/kube:1.0.0 .
+            docker image build -t royalboe/kube:1.0.0 .circleci/.
             docker push royalboe:1.0.0
       # - notify_slack_success
       # - notify_slack_error
