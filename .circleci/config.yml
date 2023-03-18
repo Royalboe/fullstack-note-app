@@ -5,4 +5,104 @@ orbs:
 defaults: 
   - &kubeImage
     docker:
-        - image: royalboe/kube:1.0.0
+      - image: royalboe/kube:1.0.0
+  - &baseImage
+    docker:
+      - image: cimg/base:2022.09
+  
+  - &terraformImage
+    docker:
+      - image: hashicorp/terraform:1.0.0
+
+commands:
+  connect-eks-to-kubectl:
+    steps:
+      - run:
+          name: Connect to eks
+          command: |
+            aws eks update-kubeconfig --region us-east-1 --name notes-cluster
+
+
+jobs:
+  build-base-image:
+    <<: *baseImage
+    steps:
+      - checkout
+      - run:
+          name: Build docker image
+          command: |
+            docker image build -t royalboe/kube:1.0.0 .
+            docker push royalboe:1.0.0
+      # - notify_slack_success
+      # - notify_slack_error
+    
+  build-application-images:
+    <<: *kubeImage
+    steps:
+      - checkout
+      - run:
+          name: Build application images
+          command: |
+            docker --version #print the version for logging
+            docker image build -t notes-api ./api
+            docker image build -t notes-client ./client
+            docker image build -t notes-postgres ./postgres
+            docker image build -t notes-nginx ./nginx
+        
+      - run:
+          name: Tag images
+          command: |
+            docker tag notes-api royalboe/notes-api:latest
+            docker tag notes-client royalboe/notes-client:latest
+            docker tag notes-postgres royalboe/notes-postgres:latest
+            docker tag notes-ngnix royalboe/notes-nginx
+      
+      - run:
+          name: Login
+          command: |
+            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin            
+
+      - run:
+          name: Push application images
+          command:
+            docker push royalboe/notes-api:latest
+            docker push royalboe/notes-client:latest
+            docker push royalboe/notes-postgres:latest
+            docker push royalboe/notes-nginx
+      
+  configure-infra:
+      <<: *terraformImage
+      steps: 
+      - checkout
+      - run:
+          name: Configure infrastructure
+          command: |
+            cd .circleci/terraform-eks
+            terraform init
+            terraform apply -auto-approve
+            terraform output kubeconfig > kubeconfig
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - "kubeconfig"
+  deploy:
+   <<: *kubeImage
+   steps:
+     - checkout
+     - attach_workspace:
+         at: ./
+     - connect-eks-kubectl
+     - run:
+        name: "Run deployment"
+        command: |
+          kubectl apply -f k8s
+
+
+workflows:
+  default:
+    jobs:
+      - build-base-image
+      - build-application-images:
+         requires: 
+            - build-base-image
+      - configure-infra
