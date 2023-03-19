@@ -94,7 +94,7 @@ jobs:
       - run:
           name: Remove infrastructure
           command: |
-            cd .circleci/terraform-eks
+            cd .circleci/terraform-cluster
             terraform destroy -auto-approve
       - persist_to_workspace:
           root: workspace
