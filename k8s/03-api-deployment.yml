@@ -4,7 +4,7 @@ metadata:
   name: api-deployment
   namespace: note-app
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       component: api
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: royalboe/notes-api:latest
+          image: fhsinchy/notes-api:latest
           ports:
             - containerPort: 3000
           resources:

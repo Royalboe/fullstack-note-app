@@ -11,7 +11,7 @@ data "aws_ssm_parameter" "eks_ami_release_version" {
   version = aws_eks_cluster.eks.version
   release_version = data.aws_ssm_parameter.eks_ami_release_version.value
   subnet_ids   = [var.priv_subnet_id_1, var.priv_subnet_id_2]
-  instance_types = ["t3.xlarge"]
+  instance_types = ["t3.medium"]
   capacity_type = "ON_DEMAND"
   disk_size = 100
   remote_access {
