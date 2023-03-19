@@ -87,7 +87,7 @@ jobs:
       - run:
           name: Configure infrastructure
           command: |
-            cd .circleci/terraform-eks
+            cd .circleci/terraform-cluster
             terraform init
             terraform apply -auto-approve
             terraform output kubeconfig > kubeconfig
