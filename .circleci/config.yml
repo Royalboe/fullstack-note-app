@@ -91,6 +91,11 @@ jobs:
             terraform init
             terraform apply -auto-approve
             terraform output kubeconfig > kubeconfig
+      - run:
+          name: Remove infrastructure
+          command: |
+            cd .circleci/terraform-eks
+            terraform destroy -auto-approve
       - persist_to_workspace:
           root: workspace
           paths:
@@ -115,4 +120,4 @@ workflows:
       - build-application-images:
          requires: 
             - build-base-image
-      # - configure-infra
+      - configure-infra
