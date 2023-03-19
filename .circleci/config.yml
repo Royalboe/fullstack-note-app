@@ -23,7 +23,7 @@ commands:
       - run:
           name: Connect to eks
           command: |
-            aws eks update-kubeconfig --region us-east-1 --name notes-cluster
+            aws eks update-kubeconfig --region us-east-1 --name royalboe-eks-vpc-cluster
 
 
 jobs:
