@@ -44,7 +44,7 @@ jobs:
       # - notify_slack_error
     
   build-application-images:
-    <<: *nodeImage
+    <<: *baseImage
     steps:
       - checkout
       - setup_remote_docker:
@@ -54,10 +54,7 @@ jobs:
           name: Build application images
           command: |
             docker --version #print the version for logging
-            docker image build -t notes-api ./api
-            docker image build -t notes-client ./client
-            docker image build -t notes-postgres ./postgres
-            docker image build -t notes-nginx ./nginx
+            docker-compose build
         
       - run:
           name: Tag images
