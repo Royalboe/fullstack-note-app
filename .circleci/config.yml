@@ -100,7 +100,7 @@ jobs:
    <<: *kubeImage
    steps:
      - checkout
-     - connect-eks-kubectl
+     - connect-eks-to-kubectl
      - run:
         name: Run deployment
         command: |
@@ -115,4 +115,6 @@ workflows:
          requires: 
             - build-base-image
       - configure-infra
-      - deploy
+      - deploy:
+         requires:
+          - configure-infra
