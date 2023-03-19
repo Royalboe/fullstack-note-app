@@ -9,6 +9,9 @@ defaults:
   - &baseImage
     docker:
       - image: cimg/base:2022.09
+  - &nodeImage
+    docker:
+        - image: cimg/node:13.8.0
   
   - &terraformImage
     docker:
@@ -41,10 +44,12 @@ jobs:
       # - notify_slack_error
     
   build-application-images:
-    machine:
-      image: ubuntu-2204:2022.04.2
+    <<: *nodeImage
     steps:
       - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+          version: 20.10.18
       - run:
           name: Build application images
           command: |
