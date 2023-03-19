@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: postgres-deployment
+  namespace: note-app
 spec:
   replicas: 1
   selector:
@@ -18,7 +19,7 @@ spec:
             claimName: database-persistent-volume-claim
       containers:
         - name: postgres
-          image: royalboe/notes-postgres
+          image: royalboe/notes-postgres:latest
           ports:
             - containerPort: 5432
           volumeMounts:
