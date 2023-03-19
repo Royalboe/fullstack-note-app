@@ -90,11 +90,11 @@ jobs:
             cd .circleci/terraform-cluster
             terraform init
             terraform apply -auto-approve
-      - run:
-          name: Remove infrastructure
-          command: |
-            cd .circleci/terraform-cluster
-            terraform destroy -auto-approve
+      # - run:
+      #     name: Remove infrastructure
+      #     command: |
+      #       cd .circleci/terraform-cluster
+      #       terraform destroy -auto-approve
 
   deploy:
    <<: *kubeImage
@@ -115,3 +115,4 @@ workflows:
          requires: 
             - build-base-image
       - configure-infra
+      - deploy
