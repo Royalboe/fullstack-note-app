@@ -65,7 +65,7 @@ jobs:
             docker tag notes-api royalboe/notes-api:latest
             docker tag notes-client royalboe/notes-client:latest
             docker tag notes-postgres royalboe/notes-postgres:latest
-            docker tag notes-ngnix royalboe/notes-nginx
+            docker tag notes-nginx royalboe/notes-nginx:latest
       
       - run:
           name: Login
@@ -78,7 +78,7 @@ jobs:
             docker push royalboe/notes-api:latest
             docker push royalboe/notes-client:latest
             docker push royalboe/notes-postgres:latest
-            docker push royalboe/notes-nginx
+            docker push royalboe/notes-nginx:latest
       
   configure-infra:
       <<: *terraformImage
