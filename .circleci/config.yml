@@ -90,7 +90,6 @@ jobs:
             cd .circleci/terraform-cluster
             terraform init
             terraform apply -auto-approve
-            terraform output kubeconfig > kubeconfig
       - run:
           name: Remove infrastructure
           command: |
