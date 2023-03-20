@@ -65,10 +65,10 @@ jobs:
           name: Build notes application images
           command: |
             docker --version #print the version for logging
-            docker image build -t notes-api ./api/
-            docker image build -t notes-client ./client
-            docker image build -t notes-postgres ./postgres
-            docker image build -t notes-nginx ./nginx
+            docker image build -t notes-api ./fullstack-notes-application/api/
+            docker image build -t notes-client ./fullstack-notes-application/client
+            docker image build -t notes-postgres ./fullstack-notes-application/postgres
+            docker image build -t notes-nginx ./fullstack-notes-application/nginx
         
       - run:
           name: Tag images
@@ -114,7 +114,7 @@ jobs:
       - deploy-ingress
       - run:
           command: |
-            kubectl apply -f k8s
+            kubectl apply -f ./fullstack-notes-application/k8s
 
   deploy-socks-app:
     <<: *nImage
