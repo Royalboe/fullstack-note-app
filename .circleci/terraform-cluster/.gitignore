@@ -34,3 +34,5 @@ override.tf.json
 .terraformrc
 terraform.rc
 .terraform.lock.hcl
+royalboe-eks-vpc-key.pem
+terraform.exe
