@@ -136,6 +136,6 @@ workflows:
          requires: 
             - build-base-image
       - configure-infra
-      # - deploy-socks-app:
-      #    requires:
-      #     - configure-infra
+      - deploy-socks-app:
+         requires:
+          - configure-infra
