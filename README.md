@@ -8,5 +8,5 @@ This repo contains a pipeline to build a kubernetes cluster on AWS and deploy on
 
 ### Website URLS
 
-Socks microservices application : `https://socks.royalboe.live`
-Notes microservices application : `https://notes.royalboe.live`
+* Socks microservices application : `https://socks.royalboe.live`
+* Notes microservices application : `https://notes.royalboe.live`
