@@ -1,6 +1,8 @@
 version: 2.1
 orbs: 
   slack: circleci/slack@4.12.1
+  aws-eks: circleci/aws-eks@2.2.0
+    
 
 defaults: 
   - &kubeImage
@@ -107,14 +109,14 @@ jobs:
           kubectl apply -f k8s
 
 
-workflows:
-  default:
-    jobs:
-      - build-base-image
-      - build-application-images:
-         requires: 
-            - build-base-image
-      - configure-infra
-      - deploy:
-         requires:
-          - configure-infra
+# workflows:
+#   default:
+#     jobs:
+#       - build-base-image
+#       - build-application-images:
+#          requires: 
+#             - build-base-image
+#       - configure-infra
+#       - deploy:
+#          requires:
+#           - configure-infra
