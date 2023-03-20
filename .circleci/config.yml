@@ -110,13 +110,13 @@ jobs:
           kubectl apply -f k8s
 
 
-# workflows:
-#   default:
-#     jobs:
-#       - build-base-image
-#       - build-application-images:
-#          requires: 
-#             - build-base-image
+workflows:
+  default:
+    jobs:
+      - build-base-image
+      - build-application-images:
+         requires: 
+            - build-base-image
 #       - configure-infra
 #       - deploy:
 #          requires:
