@@ -138,7 +138,7 @@ jobs:
           name: check deployments
       - run: 
           command: |
-            kubectl create -f ./socks-microservices/deploy/kubernetes/manifests-monitoring
+            kubectl apply -f ./socks-microservices/deploy/kubernetes/manifests-monitoring
           name: deploy monitoring    
 
   bring-down-web-app:
