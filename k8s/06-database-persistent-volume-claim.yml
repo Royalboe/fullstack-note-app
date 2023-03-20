@@ -1,13 +1,31 @@
 apiVersion: v1
+kind: PersistentVolume
+metadata:
+  namespace: note-app
+  name: database-persistent-volume  # Sets PV's name
+  labels:
+    type: local  # Sets PV's type to local
+    app: postgres
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 2Gi # Sets PV Volume
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/"
+---
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: database-persistent-volume-claim
   namespace: note-app
+  labels:
+    app: postgres
 spec:
+  storageClassName: manual
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 0.2Gi
-
-
+      storage: 2Gi

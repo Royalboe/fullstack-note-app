@@ -28,6 +28,14 @@ commands:
           command: |
             aws eks update-kubeconfig --region us-east-1 --name royalboe-eks-vpc-cluster
 
+  deploy-ingress:
+    steps:
+      - run:
+          command: |
+            kubectl apply -f deploy.yaml
+          name: Deploy ingress
+   
+
 
 jobs:
   build-base-image:
@@ -46,7 +54,7 @@ jobs:
       # - notify_slack_success
       # - notify_slack_error
     
-  build-application-images:
+  build-notes-application-images:
     <<: *baseImage
     steps:
       - checkout
@@ -54,7 +62,7 @@ jobs:
           docker_layer_caching: true
           version: 20.10.18
       - run:
-          name: Build application images
+          name: Build notes application images
           command: |
             docker --version #print the version for logging
             docker image build -t notes-api ./api/
@@ -93,21 +101,20 @@ jobs:
             cd .circleci/terraform-cluster
             terraform init
             terraform apply -auto-approve
-      # - run:
-      #     name: Remove infrastructure
-      #     command: |
-      #       cd .circleci/terraform-cluster
-      #       terraform destroy -auto-approve
 
   deploy-note-app:
-   <<: *kubeImage
-   steps:
-     - checkout
-     - connect-eks-to-kubectl
-     - run:
-        name: Run deployment
-        command: |
-          kubectl apply -f k8s
+    <<: *nImage
+    steps:
+      - checkout
+      - kubernetes/install:
+          kubectl-version: v1.22.0
+      - aws-eks/update-kubeconfig-with-authenticator:
+          cluster-name: royalboe-eks-vpc-cluster
+          aws-region: us-east-1
+      - deploy-ingress
+      - run:
+          command: |
+            kubectl apply -f k8s
 
   deploy-socks-app:
     <<: *nImage
@@ -122,12 +129,53 @@ jobs:
           command: |
             cd socks-microservices/deploy/kubernetes
             kubectl apply -f manifests
+          name: deploy applications
+      - run:
+          command: |
             kubectl get services
             kubectl get pods
             kubectl get deployments
-          name: deploy applications
-    
+          name: check deployments
+      - run: 
+          command: |
+            kubectl create -f ./deploy/kubernetes/manifests-monitoring
+          name: deploy monitoring    
 
+  bring-down-web-app:
+    <<: *kubeImage
+    steps:
+      - checkout
+      - kubernetes/install:
+          kubectl-version: v1.22.0
+      - aws-eks/update-kubeconfig-with-authenticator:
+          cluster-name: royalboe-eks-vpc-cluster
+          aws-region: us-east-1
+      - run:
+          command: |
+            kubectl delete -f deploy.yaml
+      - run:
+          command: |
+            kubectl delete -f k8s
+          name: Bring down notes web app
+      - run:
+          command: |
+            kubectl delete -f .socks-microservices/deploy/kubernetes/manifests-monitoring
+          name: Bring down monitoring
+      - run:
+          command: |
+            kubectl delete -f socks-microservices/deploy/kubernetes/manifests
+          name: Bring down socks web app
+
+  tear-down-infra:
+    <<: *terraformImage
+    steps:
+      - checkout
+      - run:
+          name: Tear down infrastructure
+          command: |
+            cd .circleci/terraform-cluster
+            terraform init
+            terraform destroy -auto-approve
 
 workflows:
   default:
@@ -140,3 +188,13 @@ workflows:
       - deploy-socks-app:
          requires:
           - configure-infra
+      - deploy-note-app:
+         requires:
+          - configure-infra
+      # - bring-down-web-app:
+      #    requires:
+      #     - deploy-socks-app
+      #     - deploy-note-app
+      # - tear-down-infra:
+      #     requires:
+      #       - bring-down-web-app
