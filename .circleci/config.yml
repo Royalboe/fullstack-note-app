@@ -12,9 +12,9 @@ defaults:
   - &baseImage
     docker:
       - image: cimg/base:2022.09
-  - &nodeImage
+  - &nImage
     docker:
-        - image: cimg/node:13.8.0
+      - image: 'cimg/python:3.10'
   
   - &terraformImage
     docker:
@@ -99,7 +99,7 @@ jobs:
       #       cd .circleci/terraform-cluster
       #       terraform destroy -auto-approve
 
-  deploy:
+  deploy-note-app:
    <<: *kubeImage
    steps:
      - checkout
@@ -108,6 +108,24 @@ jobs:
         name: Run deployment
         command: |
           kubectl apply -f k8s
+
+  deploy-socks-app:
+    <<: *nImage
+    steps:
+      - checkout
+      - kubernetes/install:
+            kubectl-version: v1.22.0
+      - aws-eks/update-kubeconfig-with-authenticator:
+          cluster-name: royalboe-eks-vpc-cluster
+      - run:
+          command: |
+            cd socks-microservices/deploy/kubernetes
+            kubectl apply -f manifests
+            kubectl get services
+            kubectl get pods
+            kubectl get deployments
+          name: deploy applications
+    
 
 
 workflows:
@@ -118,6 +136,6 @@ workflows:
          requires: 
             - build-base-image
 #       - configure-infra
-#       - deploy:
+#       - deploy-socks-app:
 #          requires:
 #           - configure-infra
