@@ -181,7 +181,7 @@ workflows:
   default:
     jobs:
       - build-base-image
-      - build-application-images:
+      - build-notes-application-images:
          requires: 
             - build-base-image
       - configure-infra
