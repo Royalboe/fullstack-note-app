@@ -5,22 +5,18 @@
 ## Description
 
 This repo contains a pipeline to build a kubernetes cluster on AWS and deploy on the cluster two containerized web applications.
-
+The Project is focused on deploying two web applications using kubernetes.
+The first is a socks microservice application and the other one is a notes microservice application.
 
 ## Stack Used
 
-* CircleCI
-* Kubernetes
-* Docker
-* Terraform
-* AWS
-* Prometheus
-* Grafana
-* Postgres
-* Nginx
-* Javascriot
-* NodeJs
-* Go
+* CircleCI : For the CI/CD pipeline
+* Kubernetes : For orchestration
+* Docker: To build the images
+* Terraform: To set up the infrastructures
+* AWS: The cloud platform used
+* Prometheus: The monitoring tool
+* Grafana: For data visualization
 
 ## Files And Directories
 
