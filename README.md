@@ -64,3 +64,5 @@ Files | Description
 
 * Socks microservices application : `https://socks.royalboe.live`
 * Notes microservices application : `https://notes.royalboe.live`
+* Prometheus Monitoring: `http://prometheus.royalboe.live`
+* Grafana : `http://grafana.royalboe.live`
