@@ -33,7 +33,7 @@ commands:
       - run:
           command: |
             kubectl apply -f deploy.yaml
-          name: Deploy ingress
+          name: Deploy ingress controller
    
 
 
@@ -48,8 +48,7 @@ jobs:
           command: |
             docker --version
             echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-            docker build -t kube:1.0.0 .circleci/.
-            docker tag kube:1.0.0 royalboe/kube:1.0.0
+            docker build -t royalboe/kube:1.0.0 .circleci/.
             docker push royalboe/kube:1.0.0
       # - notify_slack_success
       # - notify_slack_error
