@@ -158,7 +158,7 @@ jobs:
           name: Bring down notes web app
       - run:
           command: |
-            kubectl delete -f .socks-microservices/deploy/kubernetes/manifests-monitoring
+            kubectl delete -f ./socks-microservices/deploy/kubernetes/manifests-monitoring
           name: Bring down monitoring
       - run:
           command: |
