@@ -190,10 +190,10 @@ workflows:
       - deploy-note-app:
          requires:
           - configure-infra
-      # - bring-down-web-app:
-      #    requires:
-      #     - deploy-socks-app
-      #     - deploy-note-app
-      # - tear-down-infra:
-      #     requires:
-      #       - bring-down-web-app
+      - bring-down-web-app:
+         requires:
+          - deploy-socks-app
+          - deploy-note-app
+      - tear-down-infra:
+          requires:
+            - bring-down-web-app
