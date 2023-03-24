@@ -19,7 +19,7 @@ spec:
             claimName: database-persistent-volume-claim
       containers:
         - name: postgres
-          image: fhsinchy/notes-postgres:latest
+          image: royalboe/notes-postgres:latest
           ports:
             - containerPort: 5432
           volumeMounts:

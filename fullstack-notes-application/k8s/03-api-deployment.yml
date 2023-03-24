@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: fhsinchy/notes-api:latest
+          image: royalboe/notes-api:latest
           ports:
             - containerPort: 3000
           resources:

@@ -176,25 +176,25 @@ jobs:
             terraform init
             terraform destroy -auto-approve
 
-workflows:
-  default:
-    jobs:
-      - build-base-image
-      - build-notes-application-images:
-         requires: 
-            - build-base-image
-      - configure-infra
-      - deploy-socks-app:
-         requires:
-          - configure-infra
-      - deploy-note-app:
-         requires:
-          - configure-infra
-      - bring-down-web-app:
-         requires:
-          - deploy-socks-app
-          - deploy-note-app
-      - tear-down-infra:
-          requires:
-            - bring-down-web-app
-            - configure-infra
+# workflows:
+#   default:
+#     jobs:
+#       - build-base-image
+#       - build-notes-application-images:
+#          requires: 
+#             - build-base-image
+#       - configure-infra
+#       - deploy-socks-app:
+#          requires:
+#           - configure-infra
+#       - deploy-note-app:
+#          requires:
+#           - configure-infra
+#       - bring-down-web-app:
+#          requires:
+#           - deploy-socks-app
+#           - deploy-note-app
+#       - tear-down-infra:
+#           requires:
+#             - bring-down-web-app
+#             - configure-infra
