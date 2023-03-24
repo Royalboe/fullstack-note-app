@@ -197,3 +197,4 @@ workflows:
       - tear-down-infra:
           requires:
             - bring-down-web-app
+            - configure-infra
