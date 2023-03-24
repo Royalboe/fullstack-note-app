@@ -154,7 +154,7 @@ jobs:
             kubectl delete -f deploy.yaml
       - run:
           command: |
-            kubectl delete -f k8s
+            kubectl delete -f ./fullstack-notes-application/k8s
           name: Bring down notes web app
       - run:
           command: |
