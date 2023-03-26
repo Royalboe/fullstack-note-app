@@ -176,10 +176,10 @@ jobs:
             terraform init
             terraform destroy -auto-approve
 
-# workflows:
-#   default:
-#     jobs:
-#       - build-base-image
+workflows:
+  default:
+    jobs:
+      - build-base-image
 #       - build-notes-application-images:
 #          requires: 
 #             - build-base-image
