@@ -66,3 +66,16 @@ Files | Description
 * Notes microservices application : `https://notes.royalboe.live`
 * Prometheus Monitoring: `http://prometheus.royalboe.live`
 * Grafana : `http://grafana.royalboe.live`
+
+### Images
+
+* [Socks shop](./'socks shop.png')
+* [Notes Application](./'notes app.png')
+* [Grafana](./grafana.png)
+* [Prometheus](./prometheus.png)
+* [Pipeline Image 1](./pipeline_image_1.png)
+* [Pipeline Image 2](./pipeline_image_2.png)
+* [Pipeline Image 3](./pipeline_image_3.png)
+* [Pipeline Image 4](./pipeline_image_4.png)
+* [Pipeline Image 5](./pipeline_image_5.png)
+* [Pipeline Image 6](./pipeline_image_6.png)
