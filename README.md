@@ -1,6 +1,6 @@
 # FULLSTACK APP
 
-[![CircleCI](https://circleci.com/gh/Royalboe/project-ml-microservice-kubernetes.svg?style=svg)](https://circleci.com/gh/Royalboe/project-ml-microservice-kubernetes)
+[![CircleCI](https://circleci.com/gh/Royalboe/fullstack-note-app.svg?style=svg)](https://circleci.com/gh/Royalboe/fullstack-note-app)
 
 ## Description
 
