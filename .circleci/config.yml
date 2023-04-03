@@ -189,6 +189,7 @@ workflows:
 #           - configure-infra
 #       - deploy-note-app:
 #          requires:
+#           - build-notes-application-images
 #           - configure-infra
 #       - bring-down-web-app:
 #          requires:
