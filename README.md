@@ -69,8 +69,8 @@ Files | Description
 
 ### Images
 
-* [Socks shop]('./socks shop.png')
-* [Notes Application]('./notes app.png')
+* [Socks shop](./socks_shop.png)
+* [Notes Application](./notes_app.png)
 * [Grafana](./grafana.png)
 * [Prometheus](./prometheus.png)
 * [Pipeline Image 1](./pipeline_image_1.png)
